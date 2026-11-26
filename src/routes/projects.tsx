@@ -345,6 +345,9 @@ function ProjectsPage() {
           >
             Contact
           </a>
+          <a href="tel:+918114462733" className="hover:text-white transition-colors">
+            +91 8114462733
+          </a>
           <a href="tel:+919026054274" className="hover:text-white transition-colors">
             +91 9026054274
           </a>

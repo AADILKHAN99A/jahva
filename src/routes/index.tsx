@@ -683,22 +683,35 @@ function Index() {
                   <div className="space-y-3 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm backdrop-blur-md">
                     <div>
                       <span className="text-xs text-zinc-400">Phone:</span>
-                      <p className="font-mono text-base font-semibold text-white">
-                        <a href="tel:+919026054274" className="hover:underline text-white">
-                          +91 9026054274
-                        </a>
-                      </p>
+                      <div className="space-y-1 mt-0.5">
+                        <p className="font-mono text-base font-semibold text-white">
+                          <a href="tel:+918114462733" className="hover:underline text-white">
+                            +91 8114462733
+                          </a>
+                        </p>
+                        <p className="font-mono text-sm text-zinc-300">
+                          <a href="tel:+919026054274" className="hover:underline text-zinc-300">
+                            +91 9026054274
+                          </a>
+                        </p>
+                      </div>
                     </div>
                     <div>
                       <span className="text-xs text-zinc-400">Location:</span>
                       <p className="text-zinc-200">Jaipur, India &amp; Worldwide Remote Partnerships</p>
                     </div>
-                    <div className="pt-2 flex gap-2">
+                    <div className="pt-2 flex flex-wrap gap-2">
                       <a
-                        href="tel:+919026054274"
+                        href="tel:+918114462733"
                         className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white text-black text-xs font-medium hover:bg-zinc-200"
                       >
-                        <Phone className="h-3 w-3" /> Call Now
+                        <Phone className="h-3 w-3" /> Call +91 8114462733
+                      </a>
+                      <a
+                        href="tel:+919026054274"
+                        className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-white/20 bg-white/10 text-white text-xs font-medium hover:bg-white/20"
+                      >
+                        <Phone className="h-3 w-3" /> Call +91 9026054274
                       </a>
                       <a
                         href="https://mail.google.com/mail/?view=cm&fs=1&to=jahva.interested@gmail.com"
@@ -790,9 +803,17 @@ function Index() {
             </div>
             <div className="flex flex-wrap items-center gap-2.5 shrink-0">
               <a
+                href="tel:+918114462733"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 hover:border-white transition-all text-xs font-medium tracking-wide font-sans group"
+                title="Call +91 8114462733"
+              >
+                <Phone className="h-3.5 w-3.5 text-zinc-300 group-hover:text-black" />
+                <span>+91 8114462733</span>
+              </a>
+              <a
                 href="tel:+919026054274"
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 hover:border-white transition-all text-xs font-medium tracking-wide font-sans group"
-                title="Call Studio"
+                title="Call +91 9026054274"
               >
                 <Phone className="h-3.5 w-3.5 text-zinc-300 group-hover:text-black" />
                 <span>+91 9026054274</span>
@@ -1191,6 +1212,15 @@ function Index() {
                   Connect
                 </div>
                 <ul className="space-y-3 text-zinc-400 font-sans">
+                  <li>
+                    <a
+                      href="tel:+918114462733"
+                      className="hover:text-white transition-colors flex items-center gap-2 group"
+                    >
+                      <Phone className="h-3.5 w-3.5 text-zinc-400 group-hover:text-white shrink-0" />
+                      <span>+91 8114462733</span>
+                    </a>
+                  </li>
                   <li>
                     <a
                       href="tel:+919026054274"
