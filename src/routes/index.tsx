@@ -268,11 +268,13 @@ const TEAM_MEMBERS = [
     role: "Video Editor and 3D Artist",
     experience: "Experience with Professor of How",
     photo: "/images/team/member-3.jpg",
+    hidden: true,
   },
   {
     role: "Software Developer",
     experience: "Experience with Serve.com, White Eudicots and Projects",
     photo: "/images/team/member-4.jpg",
+    hidden: true,
   },
 ];
 
@@ -1003,18 +1005,14 @@ function Index() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-            {TEAM_MEMBERS.map((member, idx) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 max-w-3xl gap-6 sm:gap-8">
+            {TEAM_MEMBERS.filter((member) => !member.hidden).map((member, idx) => (
               <div key={idx} className="group">
                 <div className="overflow-hidden rounded-2xl aspect-[4/5] bg-[#131826] border border-white/[0.10] mb-3.5 relative shadow-lg">
                   <img
                     src={member.photo}
                     alt={member.role}
-                    className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 ${
-                      idx === 3
-                        ? "filter grayscale contrast-[0.92] brightness-[1.10] group-hover:contrast-100 group-hover:brightness-105"
-                        : "filter grayscale contrast-[1.02] group-hover:grayscale-0"
-                    }`}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale contrast-[1.02] group-hover:grayscale-0"
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0d14]/70 via-transparent to-transparent opacity-75" />
