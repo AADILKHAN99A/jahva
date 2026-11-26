@@ -255,14 +255,14 @@ const THOUGHT_PROCESS_CARDS = [
 
 const TEAM_MEMBERS = [
   {
-    role: "Creative Designer and Consultant",
-    experience: "Founder & Experience with Urban Culture, Clystro, White Eudicots, Chetan Pumps",
-    photo: "/images/team/member-1.jpg",
-  },
-  {
     role: "FullStack Developer",
     experience: "Experience with Zucol, Arthonsys Technologies and Several Projects",
     photo: "/images/team/member-2.jpg",
+  },
+  {
+    role: "Creative Designer and Consultant",
+    experience: "Founder & Experience with Urban Culture, Clystro, White Eudicots, Chetan Pumps",
+    photo: "/images/team/member-1.jpg",
   },
   {
     role: "Video Editor and 3D Artist",
