@@ -368,6 +368,8 @@ function Index() {
     ? TEAM_MEMBERS.filter((m) => clientConfig.memberIds.includes(m.id))
     : TEAM_MEMBERS.filter((m) => !m.hidden);
 
+  const showFullstackPhone = !clientConfig || clientConfig.memberIds.includes("fullstack");
+
   const [loading, setLoading] = useState(true);
   const [typewriterText, setTypewriterText] = useState("");
   const [loadingFade, setLoadingFade] = useState(false);
@@ -713,13 +715,15 @@ function Index() {
                     <div>
                       <span className="text-xs text-zinc-400">Phone:</span>
                       <div className="space-y-1 mt-0.5">
-                        <p className="font-mono text-base font-semibold text-white">
-                          <a href="tel:+918114462733" className="hover:underline text-white">
-                            +91 8114462733
-                          </a>
-                        </p>
-                        <p className="font-mono text-sm text-zinc-300">
-                          <a href="tel:+919026054274" className="hover:underline text-zinc-300">
+                        {showFullstackPhone && (
+                          <p className="font-mono text-base font-semibold text-white">
+                            <a href="tel:+918114462733" className="hover:underline text-white">
+                              +91 8114462733
+                            </a>
+                          </p>
+                        )}
+                        <p className={`font-mono ${showFullstackPhone ? "text-sm text-zinc-300" : "text-base font-semibold text-white"}`}>
+                          <a href="tel:+919026054274" className={`hover:underline ${showFullstackPhone ? "text-zinc-300" : "text-white"}`}>
                             +91 9026054274
                           </a>
                         </p>
@@ -730,18 +734,29 @@ function Index() {
                       <p className="text-zinc-200">Jaipur, India &amp; Worldwide Remote Partnerships</p>
                     </div>
                     <div className="pt-2 flex flex-wrap gap-2">
-                      <a
-                        href="tel:+918114462733"
-                        className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white text-black text-xs font-medium hover:bg-zinc-200"
-                      >
-                        <Phone className="h-3 w-3" /> Call +91 8114462733
-                      </a>
-                      <a
-                        href="tel:+919026054274"
-                        className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-white/20 bg-white/10 text-white text-xs font-medium hover:bg-white/20"
-                      >
-                        <Phone className="h-3 w-3" /> Call +91 9026054274
-                      </a>
+                      {showFullstackPhone ? (
+                        <>
+                          <a
+                            href="tel:+918114462733"
+                            className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white text-black text-xs font-medium hover:bg-zinc-200"
+                          >
+                            <Phone className="h-3 w-3" /> Call +91 8114462733
+                          </a>
+                          <a
+                            href="tel:+919026054274"
+                            className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-white/20 bg-white/10 text-white text-xs font-medium hover:bg-white/20"
+                          >
+                            <Phone className="h-3 w-3" /> Call +91 9026054274
+                          </a>
+                        </>
+                      ) : (
+                        <a
+                          href="tel:+919026054274"
+                          className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white text-black text-xs font-medium hover:bg-zinc-200"
+                        >
+                          <Phone className="h-3 w-3" /> Call Now
+                        </a>
+                      )}
                       <a
                         href="https://mail.google.com/mail/?view=cm&fs=1&to=jahva.interested@gmail.com"
                         target="_blank"
@@ -831,14 +846,16 @@ function Index() {
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-2.5 shrink-0">
-              <a
-                href="tel:+918114462733"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 hover:border-white transition-all text-xs font-medium tracking-wide font-sans group"
-                title="Call +91 8114462733"
-              >
-                <Phone className="h-3.5 w-3.5 text-zinc-300 group-hover:text-black" />
-                <span>+91 8114462733</span>
-              </a>
+              {showFullstackPhone && (
+                <a
+                  href="tel:+918114462733"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 hover:border-white transition-all text-xs font-medium tracking-wide font-sans group"
+                  title="Call +91 8114462733"
+                >
+                  <Phone className="h-3.5 w-3.5 text-zinc-300 group-hover:text-black" />
+                  <span>+91 8114462733</span>
+                </a>
+              )}
               <a
                 href="tel:+919026054274"
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 hover:border-white transition-all text-xs font-medium tracking-wide font-sans group"
@@ -1120,6 +1137,7 @@ function Index() {
                   <Link
                     key={`r1-${project.id}-${idx}`}
                     to="/projects"
+                    search={token ? { view: token } : undefined}
                     title={`Explore ${project.title} in Projects Archive`}
                     className="group relative w-[280px] sm:w-[330px] md:w-[380px] aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#111624] border border-white/[0.12] hover:border-white/40 transition-all duration-500 cursor-pointer shadow-xl shrink-0 hover:-translate-y-2 hover:scale-[1.01] block"
                   >
@@ -1145,6 +1163,7 @@ function Index() {
                   <Link
                     key={`r2-${project.id}-${idx}`}
                     to="/projects"
+                    search={token ? { view: token } : undefined}
                     title={`Explore ${project.title} in Projects Archive`}
                     className="group relative w-[280px] sm:w-[330px] md:w-[380px] aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#111624] border border-white/[0.12] hover:border-white/40 transition-all duration-500 cursor-pointer shadow-xl shrink-0 hover:-translate-y-2 hover:scale-[1.01] block"
                   >
@@ -1169,6 +1188,7 @@ function Index() {
             <div className="mt-8 sm:mt-12 flex justify-center">
               <Link
                 to="/projects"
+                search={token ? { view: token } : undefined}
                 className="inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-white/[0.06] hover:bg-white text-zinc-200 hover:text-black border border-white/15 hover:border-white transition-all text-xs sm:text-sm font-medium font-sans shadow-xl hover:scale-105 group"
               >
                 <span>View All Projects</span>
@@ -1247,15 +1267,17 @@ function Index() {
                   Connect
                 </div>
                 <ul className="space-y-3 text-zinc-400 font-sans">
-                  <li>
-                    <a
-                      href="tel:+918114462733"
-                      className="hover:text-white transition-colors flex items-center gap-2 group"
-                    >
-                      <Phone className="h-3.5 w-3.5 text-zinc-400 group-hover:text-white shrink-0" />
-                      <span>+91 8114462733</span>
-                    </a>
-                  </li>
+                  {showFullstackPhone && (
+                    <li>
+                      <a
+                        href="tel:+918114462733"
+                        className="hover:text-white transition-colors flex items-center gap-2 group"
+                      >
+                        <Phone className="h-3.5 w-3.5 text-zinc-400 group-hover:text-white shrink-0" />
+                        <span>+91 8114462733</span>
+                      </a>
+                    </li>
+                  )}
                   <li>
                     <a
                       href="tel:+919026054274"

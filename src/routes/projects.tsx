@@ -14,7 +14,16 @@ import {
 } from "lucide-react";
 import { PROJECTS_DATA, type Project } from "@/data/projects";
 
+type ProjectsSearch = {
+  v?: string;
+  view?: string;
+};
+
 export const Route = createFileRoute("/projects")({
+  validateSearch: (search: Record<string, unknown>): ProjectsSearch => ({
+    v: typeof search.v === "string" ? search.v : undefined,
+    view: typeof search.view === "string" ? search.view : undefined,
+  }),
   component: ProjectsPage,
   head: () => ({
     meta: [
@@ -48,6 +57,10 @@ const FILTER_TABS: { id: FilterCategory; label: string; icon: any }[] = [
 ];
 
 function ProjectsPage() {
+  const search = Route.useSearch();
+  const token = search?.view || search?.v;
+  const showFullstackPhone = token !== "c7a9f4e2";
+
   const [activeFilter, setActiveFilter] = useState<FilterCategory>("all");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -105,6 +118,7 @@ function ProjectsPage() {
         <div className="max-w-7xl mx-auto px-6 sm:px-12 h-20 flex items-center justify-between">
           <Link
             to="/"
+            search={token ? { view: token } : undefined}
             className="inline-flex items-center gap-2.5 text-xs font-mono uppercase tracking-widest text-zinc-400 hover:text-white transition-colors group"
           >
             <div className="w-8 h-8 rounded-full bg-white/[0.06] border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
@@ -114,7 +128,11 @@ function ProjectsPage() {
           </Link>
 
           {/* Center Wordmark */}
-          <Link to="/" className="text-xl font-light tracking-tight text-white font-sans hover:opacity-80 transition-opacity">
+          <Link
+            to="/"
+            search={token ? { view: token } : undefined}
+            className="text-xl font-light tracking-tight text-white font-sans hover:opacity-80 transition-opacity"
+          >
             Jahva
           </Link>
 
@@ -334,7 +352,11 @@ function ProjectsPage() {
       <footer className="border-t border-white/[0.08] py-8 px-6 sm:px-12 max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-400 font-sans gap-4">
         <div>&copy; 2026 Jahva. All rights reserved.</div>
         <div className="flex items-center gap-6">
-          <Link to="/" className="hover:text-white transition-colors">
+          <Link
+            to="/"
+            search={token ? { view: token } : undefined}
+            className="hover:text-white transition-colors"
+          >
             Home
           </Link>
           <a
@@ -345,9 +367,11 @@ function ProjectsPage() {
           >
             Contact
           </a>
-          <a href="tel:+918114462733" className="hover:text-white transition-colors">
-            +91 8114462733
-          </a>
+          {showFullstackPhone && (
+            <a href="tel:+918114462733" className="hover:text-white transition-colors">
+              +91 8114462733
+            </a>
+          )}
           <a href="tel:+919026054274" className="hover:text-white transition-colors">
             +91 9026054274
           </a>
