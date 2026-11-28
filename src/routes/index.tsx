@@ -30,7 +30,16 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 
+type IndexSearch = {
+  v?: string;
+  view?: string;
+};
+
 export const Route = createFileRoute("/")({
+  validateSearch: (search: Record<string, unknown>): IndexSearch => ({
+    v: typeof search.v === "string" ? search.v : undefined,
+    view: typeof search.view === "string" ? search.view : undefined,
+  }),
   component: Index,
   head: () => ({
     meta: [
@@ -255,28 +264,40 @@ const THOUGHT_PROCESS_CARDS = [
 
 const TEAM_MEMBERS = [
   {
+    id: "fullstack",
     role: "FullStack Developer",
     experience: "Experience with Zucol, Arthonsys Technologies and Several Projects",
     photo: "/images/team/member-2.jpg",
   },
   {
+    id: "designer",
     role: "Creative Designer and Consultant",
     experience: "Founder & Experience with Urban Culture, Clystro, White Eudicots, Chetan Pumps",
     photo: "/images/team/member-1.jpg",
   },
   {
+    id: "video",
     role: "Video Editor and 3D Artist",
     experience: "Experience with Professor of How",
     photo: "/images/team/member-3.jpg",
     hidden: true,
   },
   {
+    id: "software",
     role: "Software Developer",
     experience: "Experience with Serve.com, White Eudicots and Projects",
     photo: "/images/team/member-4.jpg",
     hidden: true,
   },
 ];
+
+// Private Client Preview Access Tokens (Unguessable hashes)
+// Client 1 (Creative Designer Only): "c7a9f4e2"
+// Client 2 (Both FullStack Developer & Creative Designer): "9b2e81d7"
+const CLIENT_VIEW_CONFIGS: Record<string, { memberIds: string[] }> = {
+  "c7a9f4e2": { memberIds: ["designer"] },
+  "9b2e81d7": { memberIds: ["fullstack", "designer"] },
+};
 
 function ProfileCardVisual() {
   return (
@@ -339,6 +360,14 @@ function ProfileCardVisual() {
 type SearchOptionKey = "projects" | "contact" | "email" | "about";
 
 function Index() {
+  const search = Route.useSearch();
+  const token = search?.view || search?.v;
+  const clientConfig = token && CLIENT_VIEW_CONFIGS[token] ? CLIENT_VIEW_CONFIGS[token] : null;
+
+  const visibleMembers = clientConfig
+    ? TEAM_MEMBERS.filter((m) => clientConfig.memberIds.includes(m.id))
+    : TEAM_MEMBERS.filter((m) => !m.hidden);
+
   const [loading, setLoading] = useState(true);
   const [typewriterText, setTypewriterText] = useState("");
   const [loadingFade, setLoadingFade] = useState(false);
@@ -1026,8 +1055,14 @@ function Index() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 max-w-3xl gap-6 sm:gap-8">
-            {TEAM_MEMBERS.filter((member) => !member.hidden).map((member, idx) => (
+          <div
+            className={`grid gap-6 sm:gap-8 ${
+              visibleMembers.length === 1
+                ? "grid-cols-1 max-w-sm"
+                : "grid-cols-1 sm:grid-cols-2 max-w-3xl"
+            }`}
+          >
+            {visibleMembers.map((member, idx) => (
               <div key={idx} className="group">
                 <div className="overflow-hidden rounded-2xl aspect-[4/5] bg-[#131826] border border-white/[0.10] mb-3.5 relative shadow-lg">
                   <img
